@@ -39,7 +39,7 @@ body::before{
   background-image:url('fondo.jpeg');
   background-size:cover;
   background-position:center center;
-  opacity:0.13;
+  opacity:0.18;
   pointer-events:none;
   z-index:0;
 }
@@ -196,9 +196,9 @@ body>*{position:relative;z-index:1;}
   padding:64px 48px;
   text-align:center;
   border-top:1px solid var(--border);
-  background:rgba(253,252,250,0.78);
+  background:rgba(253,252,250,0.62);
 }
-.section.alt{background:rgba(240,236,228,0.72);}
+.section.alt{background:rgba(240,236,228,0.55);}
 
 .section-label{
   font-family:'EB Garamond',serif;
@@ -335,59 +335,17 @@ body>*{position:relative;z-index:1;}
 }
 
 /* ── RSVP ────────────────────────────────────── */
-.rsvp-form{max-width:360px;margin:0 auto;}
-.rsvp-input{
+.rsvp-frame-wrap{
+  max-width:480px;
+  margin:0 auto;
+  border:1px solid var(--border);
+  background:rgba(253,252,250,0.6);
+  overflow:hidden;
+}
+.rsvp-frame-wrap iframe{
+  display:block;
   width:100%;
   border:none;
-  border-bottom:1px solid var(--border);
-  padding:13px 4px;
-  font-family:'EB Garamond',serif;
-  font-size:.95rem;
-  background:transparent;
-  margin-bottom:16px;
-  color:var(--ink);
-  outline:none;
-  transition:border-color .2s;
-  border-radius:0;
-}
-.rsvp-input:focus{border-bottom-color:var(--slate);}
-.rsvp-input::placeholder{color:var(--ink-muted);font-style:italic;}
-.rsvp-radio-group{display:flex;gap:10px;margin-bottom:20px;}
-.rsvp-radio{
-  flex:1;padding:12px;
-  border:1px solid var(--border);
-  cursor:pointer;
-  font-family:'EB Garamond',serif;
-  font-size:.82rem;
-  text-align:center;
-  transition:all .2s;
-  letter-spacing:.1em;
-  color:var(--ink-soft);
-}
-.rsvp-radio.selected{background:var(--slate);color:var(--white);border-color:var(--slate);}
-.rsvp-btn{
-  width:100%;padding:14px;
-  border:1px solid var(--ink);
-  font-family:'EB Garamond',serif;
-  font-size:.72rem;
-  font-weight:500;
-  letter-spacing:.3em;
-  text-transform:uppercase;
-  cursor:pointer;
-  color:var(--white);
-  background:var(--ink);
-  transition:all .22s;
-}
-.rsvp-btn:hover{background:var(--slate-dark);border-color:var(--slate-dark);}
-.rsvp-success{
-  display:none;
-  padding:22px;
-  border:1px solid var(--border);
-  font-family:'Great Vibes',cursive;
-  font-size:1.6rem;
-  margin-top:20px;
-  color:var(--slate-dark);
-  text-align:center;
 }
 
 /* ── FOOTER ──────────────────────────────────── */
@@ -400,7 +358,7 @@ body>*{position:relative;z-index:1;}
   letter-spacing:.4em;
   text-transform:uppercase;
   color:var(--slate-muted);
-  background:rgba(253,252,250,0.92);
+  background:rgba(253,252,250,0.55);
 }
 
 /* ── OVERLAY ─────────────────────────────────── */
@@ -440,13 +398,6 @@ body>*{position:relative;z-index:1;}
 </head>
 <body>
 
-<div class="sending-overlay" id="sendingOverlay">
-  <div class="sending-box">
-    <h3>Enviando confirmación...</h3>
-    <div class="spinner"></div>
-    <p>Notificando al organizador</p>
-  </div>
-</div>
 
 <!-- ══ HERO ══════════════════════════════════════ -->
 <div class="hero">
@@ -601,19 +552,13 @@ body>*{position:relative;z-index:1;}
   <p style="font-family:'EB Garamond',serif;font-size:.82rem;color:var(--ink-muted);margin-bottom:28px;letter-spacing:.05em;">
     Confirma antes del miércoles, 27 de mayo de 2026
   </p>
-  <div class="rsvp-form">
-    <input class="rsvp-input" id="rsvp-name" placeholder="Tu nombre completo">
-    <input class="rsvp-input" id="rsvp-email" type="email" placeholder="Tu correo electrónico">
-    <input class="rsvp-input" id="rsvp-guests" type="number" min="1" max="10" value="1" placeholder="Número de personas">
-    <div class="rsvp-radio-group">
-      <div class="rsvp-radio selected" id="rsvp-si" onclick="selectRSVP('si')">✓ Asistiré</div>
-      <div class="rsvp-radio" id="rsvp-no" onclick="selectRSVP('no')">✗ No podré ir</div>
-    </div>
-    <textarea class="rsvp-input" id="rsvp-message" placeholder="Mensaje para los novios (opcional)" rows="3"></textarea>
-    <button class="rsvp-btn" onclick="sendRSVP('Camila','Alfonso')">Confirmar asistencia</button>
-    <div class="rsvp-success" id="rsvp-success">
-      ✦ ¡Gracias! Tu confirmación ha sido enviada ✦
-    </div>
+  <div class="rsvp-frame-wrap">
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSdu7X0xWRRfJCKicTIgxN_wWhROmQyZ3Ud7xF_IQ-b0ox_NaQ/viewform?embedded=true"
+      height="520"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0">Cargando…</iframe>
   </div>
 </div>
 
@@ -622,46 +567,7 @@ body>*{position:relative;z-index:1;}
   Con amor · Camila &amp; Alfonso · 2027
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-emailjs.init("YOUR_PUBLIC_KEY");
-var rsvpAnswer='si';
-function selectRSVP(val){
-  rsvpAnswer=val;
-  var si=document.getElementById('rsvp-si');
-  var no=document.getElementById('rsvp-no');
-  if(!si||!no)return;
-  si.classList.toggle('selected',val==='si');
-  no.classList.toggle('selected',val==='no');
-}
-async function sendRSVP(n1,n2){
-  var name=document.getElementById('rsvp-name')?.value?.trim();
-  var email=document.getElementById('rsvp-email')?.value?.trim();
-  var guests=document.getElementById('rsvp-guests')?.value||'1';
-  var msg=document.getElementById('rsvp-message')?.value||'';
-  if(!name||!email){alert('Por favor completa tu nombre y correo.');return;}
-  document.getElementById('sendingOverlay').classList.add('show');
-  try{
-    await emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{
-      to_email:'azanettichabouty@gmail.com,camilayevenesb@gmail.com',
-      from_name:name,from_email:email,
-      couple:n1+' & '+n2,
-      wedding_date:'sábado, 30 de enero de 2027',
-      attendance:rsvpAnswer==='si'?'✅ ASISTIRÁ':'❌ NO PODRÁ ASISTIR',
-      guests_count:guests,guest_message:msg||'(Sin mensaje)'
-    });
-    document.getElementById('sendingOverlay').classList.remove('show');
-    document.getElementById('rsvp-success').style.display='block';
-    document.querySelector('.rsvp-btn').style.display='none';
-  }catch(e){
-    document.getElementById('sendingOverlay').classList.remove('show');
-    var subject=encodeURIComponent('RSVP '+n1+' & '+n2+' — '+name);
-    var body=encodeURIComponent('Nombre: '+name+'\nEmail: '+email+'\nPersonas: '+guests+'\nAsistencia: '+(rsvpAnswer==='si'?'✅ SÍ':'❌ NO')+'\nMensaje: '+msg);
-    window.location.href='mailto:azanettichabouty@gmail.com,camilayevenesb@gmail.com?subject='+subject+'&body='+body;
-    document.getElementById('rsvp-success').style.display='block';
-    document.querySelector('.rsvp-btn').style.display='none';
-  }
-}
 // Live countdown
 function tick(){
   var target=new Date('2027-01-30T17:00:00');
