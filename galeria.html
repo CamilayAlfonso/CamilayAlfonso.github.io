@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galería · Garden Formal</title>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=EB+Garamond:ital,wght@0,400;0,500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f0ece4;--off-white:#f7f5f1;--ink:#756E64;--slate-dark:#737872;--gold:#b9a477;--border:rgba(107,143,163,0.18);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'EB Garamond',serif;color:var(--ink);
+  background:radial-gradient(120% 80% at 50% 0%, #f7f5f1 0%, #f0ece4 55%, #e9e3d8 100%);min-height:100vh;}
+.section{padding:56px 20px 70px;text-align:center;max-width:1000px;margin:0 auto;}
+.section-label{font-family:'EB Garamond',serif;font-size:.58rem;letter-spacing:.5em;text-transform:uppercase;color:var(--slate-dark);margin-bottom:10px;}
+.section-title{font-family:'Pinyon Script',cursive;font-size:2.9rem;color:var(--ink);margin-bottom:10px;line-height:1.2;}
+.section-intro{font-family:'EB Garamond',serif;font-style:italic;color:rgba(30,36,40,.5);max-width:36ch;margin:0 auto 34px;line-height:1.6;font-size:1rem;}
+.gallery{column-count:3;column-gap:12px;}
+@media(max-width:760px){.gallery{column-count:2;column-gap:10px;}}
+.gallery figure{break-inside:avoid;margin:0 0 12px;border-radius:8px;overflow:hidden;
+  box-shadow:0 8px 22px -14px rgba(117,110,100,.55);border:1px solid var(--border);cursor:pointer;
+  transition:transform .25s ease, box-shadow .25s ease;background:var(--off-white);}
+.gallery figure:hover{transform:translateY(-3px);box-shadow:0 14px 30px -14px rgba(117,110,100,.7);}
+.gallery img{width:100%;display:block;}
+.lb{position:fixed;inset:0;background:rgba(40,36,32,.92);display:none;align-items:center;justify-content:center;z-index:99;}
+.lb.open{display:flex;}
+.lb img{max-width:92vw;max-height:86vh;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.lb-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);
+  color:#fff;border:none;width:48px;height:48px;border-radius:50%;font-size:1.6rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.lb-btn:hover{background:rgba(255,255,255,.28);}
+.lb-prev{left:16px;} .lb-next{right:16px;}
+.lb-close{position:absolute;top:16px;right:18px;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;line-height:1;opacity:.85;}
+.lb-count{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;
+  font-family:'EB Garamond',serif;letter-spacing:.2em;font-size:.8rem;opacity:.85;}
+</style>
+</head>
+<body>
+<div class="section">
+  <div class="section-label">Inspiración</div>
+  <div class="section-title">Garden Formal</div>
+  <p class="section-intro">Un poco de inspo ✨ Algunas ideas del estilo y mood que imaginamos para nuestro día. Toca una imagen para verla en grande.</p>
+  <p style="margin:-20px auto 30px;"><a href="https://camilayalfonso.github.io" style="font-family:'EB Garamond',serif;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#737872;text-decoration:none;border-bottom:1px solid rgba(115,120,114,.4);padding-bottom:2px;">&#8592; Volver a la invitación</a></p>
+  <div class="gallery" id="gallery">
+<figure><img loading="lazy" src="inspo-01.jpg" alt="Inspiración 1"></figure>
+<figure><img loading="lazy" src="inspo-02.jpg" alt="Inspiración 2"></figure>
+<figure><img loading="lazy" src="inspo-03.jpg" alt="Inspiración 3"></figure>
+<figure><img loading="lazy" src="inspo-04.jpg" alt="Inspiración 4"></figure>
+<figure><img loading="lazy" src="inspo-05.jpg" alt="Inspiración 5"></figure>
+<figure><img loading="lazy" src="inspo-06.jpg" alt="Inspiración 6"></figure>
+<figure><img loading="lazy" src="inspo-07.jpg" alt="Inspiración 7"></figure>
+<figure><img loading="lazy" src="inspo-08.jpg" alt="Inspiración 8"></figure>
+<figure><img loading="lazy" src="inspo-09.jpg" alt="Inspiración 9"></figure>
+<figure><img loading="lazy" src="inspo-10.jpg" alt="Inspiración 10"></figure>
+<figure><img loading="lazy" src="inspo-11.jpg" alt="Inspiración 11"></figure>
+<figure><img loading="lazy" src="inspo-12.jpg" alt="Inspiración 12"></figure>
+<figure><img loading="lazy" src="inspo-13.jpg" alt="Inspiración 13"></figure>
+<figure><img loading="lazy" src="inspo-14.jpg" alt="Inspiración 14"></figure>
+<figure><img loading="lazy" src="inspo-15.jpg" alt="Inspiración 15"></figure>
+<figure><img loading="lazy" src="inspo-16.jpg" alt="Inspiración 16"></figure>
+<figure><img loading="lazy" src="inspo-17.jpg" alt="Inspiración 17"></figure>
+<figure><img loading="lazy" src="inspo-18.jpg" alt="Inspiración 18"></figure>
+<figure><img loading="lazy" src="inspo-19.jpg" alt="Inspiración 19"></figure>
+  </div>
+</div>
+
+<div class="lb" id="lb">
+  <button class="lb-close" id="lbClose" aria-label="Cerrar">&times;</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Anterior">&#8249;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Siguiente">&#8250;</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<script>
+const figs=[...document.querySelectorAll('.gallery figure')];
+const srcs=figs.map(f=>f.querySelector('img').src);
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCount=document.getElementById('lbCount');
+let cur=0;
+function openLb(i){cur=i;show();lb.classList.add('open');}
+function show(){lbImg.src=srcs[cur];lbCount.textContent=(cur+1)+' / '+srcs.length;}
+function next(d){cur=(cur+d+srcs.length)%srcs.length;show();}
+figs.forEach((f,i)=>f.addEventListener('click',()=>openLb(i)));
+document.getElementById('lbNext').onclick=e=>{e.stopPropagation();next(1);};
+document.getElementById('lbPrev').onclick=e=>{e.stopPropagation();next(-1);};
+document.getElementById('lbClose').onclick=()=>lb.classList.remove('open');
+lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open');});
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowRight')next(1);if(e.key==='ArrowLeft')next(-1);});
+</script>
+</body>
+</html>
