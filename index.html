@@ -1,575 +1,147 @@
-<!DOCTYPE html> <!-- redeploy -->
-
-<html lang="es">
+<!DOCTYPE html>
+<html lang="es-CL">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Invitación · Camila & Alfonso</title>
-<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Camila & Alfonso · Nos casamos</title>
+<meta name="description" content="Camila & Alfonso — 30 de enero de 2027, Villarrica. ¡Queremos celebrarlo contigo!">
+<meta property="og:title" content="Camila & Alfonso ¡Te invitan a su matrimonio!">
+<meta property="og:description" content="30 de enero de 2027 · Presiona para abrir la invitación 💌">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-:root{
-  --white:#fdfcfa;
-  --off-white:#f7f5f1;
-  --paper:#f0ece4;
-  --slate:#6b8fa3;
-  --slate-dark:#737872;
-  --slate-muted:rgba(107,143,163,0.55);
-  --ink:#756E64;
-  --ink-soft:#3a4348;
-  --ink-muted:rgba(30,36,40,0.45);
-  --rose:#c47a85;
-  --border:rgba(107,143,163,0.18);
-  --border-soft:rgba(107,143,163,0.10);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;}
-body{
-  font-family:'EB Garamond',serif;
-  max-width:680px;
-  margin:0 auto;
-  background:var(--white);
-  color:var(--ink);
-  position:relative;
-}
+:root{ --cream:#f6f2e9; --taupe:#867868; }
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--cream);color:var(--taupe);font-family:'EB Garamond',serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
 
-/* Watercolor texture across all pages */
-body::before{
-  content:'';
-  position:fixed;
-  top:0;left:0;right:0;bottom:0;
-  background-image:url('fondonuevocompleto.png');background-size:cover;background-position:center center;
-  opacity:0.8;
-  pointer-events:none;
-  z-index:0;
-}
-body>*{position:relative;z-index:1;}
+.stage{max-width:480px;margin:0 auto;position:relative}
 
-/* ── HERO ───────────────────────────────────── */
-.hero{
-  position:relative;
-  min-height:100svh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:72px 48px 0;
-  overflow:hidden;
-  background:rgba(253,252,250,0.92);
+/* ══════════ EL SOBRE (imagen · pantalla inicial) ══════════ */
+#cover{
+  min-height:100dvh;display:flex;align-items:center;justify-content:center;
+  background:#e1dad2;cursor:pointer;position:relative;overflow:hidden;transition:opacity .9s ease;
 }
+#cover.gone{opacity:0;pointer-events:none}
+.sobre-img{
+  height:100dvh;width:auto;max-width:100%;object-fit:contain;display:block;transform-origin:50% 57%;
+  transition:transform 1.1s cubic-bezier(.5,.05,.2,1), opacity 1.1s ease;
+}
+#cover.opening .sobre-img{transform:scale(2.5);opacity:0}
 
-/* Watercolor background image */
-.hero-bg{
-  position:absolute;
-  top:0; left:0; right:0; bottom:0;
-  
-  background-image:url('fondonuevoespacio.png');background-size:cover;abackground-position:center;
-  opacity:0.95;
-  mask-image:none;
-  -webkit-mask-image:none;
-}
+/* ══════════ INVITACIÓN (páginas del PDF) ══════════ */
+#invitation{opacity:0;max-height:0;overflow:hidden;transition:opacity 1s ease}
+#invitation.show{opacity:1;max-height:none;overflow:visible}
 
-.hero-content{
-  position:relative;
-  z-index:2;transform:translateY(calc(2vh - 0.35cm));
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  width:100%;
-}
+.page{position:relative;display:block;container-type:inline-size}
+.page img{width:100%;display:block}
 
-/* Monogram crest area */
-.monogram-wrap{
-  margin-bottom:28px;
-  animation:fadeDown .9s ease both;
-}
-.monogram-circle{
-  width:64px;height:64px;
-  border:1px solid var(--slate);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 0;
-  opacity:.75;
-}
-.monogram-circle span{
-  font-family:'Pinyon Script',cursive;
-  font-size:1.8rem;
-  color:var(--slate-dark);
-  line-height:1;
-  margin-top:4px;
-}
+/* cuenta regresiva sobre la página 2 */
+.cd{position:absolute;top:52.4%;transform:translate(-50%,-100%);text-align:center;
+  font-family:'EB Garamond',serif;font-weight:500;color:var(--taupe);line-height:1;font-size:13cqw}
+#cd-d{left:18.8%}
+#cd-h{left:50.6%}
+#cd-m{left:80.9%}
 
-/* Save the date label */
-.label-save{
-  font-family:'EB Garamond',serif;
-  font-size:.62rem;
-  letter-spacing:.5em;
-  text-transform:uppercase;
-  color:var(--slate-dark);
-  margin-bottom:20px;
-  animation:fadeDown .9s .1s ease both;
-}
+/* botón/zona de ubicación clickeable sobre las páginas 4 y 5 */
+.maplink{position:absolute;display:flex;align-items:center;justify-content:center;
+  text-decoration:none;color:var(--taupe);font-size:3.4cqw;letter-spacing:.18em;text-transform:uppercase;
+  border-radius:10px;transition:background .25s}
+.maplink:hover{background:rgba(134,120,104,.12)}
+.maplink span{opacity:.9;pointer-events:none}
+#cere-page .maplink{left:19%;top:72.4%;width:62%;height:12%}
+#rec-page  .maplink{left:19%;top:66%;width:62%;height:12%}
 
-/* Names */
-.hero-names{
-  font-family:'Pinyon Script',cursive;
-  font-size:clamp(3.8rem,12vw,5.8rem);
-  color:var(--ink);
-  line-height:1.1;
-  margin-bottom:22px;
-  animation:fadeDown .9s .2s ease both;
-  text-shadow:0 1px 8px rgba(253,252,250,0.9), 0 0 20px rgba(253,252,250,0.7);
-}
-
-/* Thin rule + date */
-.hero-rule{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  margin-bottom:14px;
-  animation:fadeDown .9s .3s ease both;
-}
-.hero-rule::before,.hero-rule::after{
-  content:'';
-  flex:1;
-  max-width:60px;
-  height:1px;
-  background:var(--slate-muted);
-}
-.hero-rule span{color:var(--slate);font-size:.55rem;letter-spacing:.35em;text-shadow:0 0 8px rgba(253,252,250,0.9);}
-
-.hero-date{
-  font-family:'EB Garamond',serif;
-  font-size:.68rem;
-  letter-spacing:.45em;
-  text-transform:uppercase;
-  color:var(--ink-soft);
-  margin-bottom:10px;
-  animation:fadeDown .9s .35s ease both;
-  text-shadow:0 1px 6px rgba(253,252,250,0.95), 0 0 16px rgba(253,252,250,0.8);
-}
-
-.hero-location-script{
-  font-family:'Pinyon Script',cursive;
-  font-size:2.2rem;
-  color:var(--slate-dark);
-  margin-bottom:6px;
-  animation:fadeDown .9s .4s ease both;
-  text-shadow:0 1px 8px rgba(253,252,250,0.95), 0 0 20px rgba(253,252,250,0.8);
-}
-
-.hero-invite-text{
-  font-family:'EB Garamond',serif;
-  font-size:.95rem;
-  font-style:italic;
-  color:var(--ink-soft);
-  max-width:320px;
-  line-height:1.85;
-  margin:20px auto 0;
-  animation:fadeDown .9s .5s ease both;
-  text-shadow:0 1px 6px rgba(253,252,250,0.95), 0 0 14px rgba(253,252,250,0.85);
-}
-
-.scroll-hint{
-  position:absolute;
-  bottom:24px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:3;
-  font-family:'EB Garamond',serif;
-  font-size:.58rem;
-  letter-spacing:.3em;
-  text-transform:uppercase;
-  color:var(--slate);
-  opacity:.65;
-  animation:bounce 2.2s ease-in-out infinite;
-}
-@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── SECTIONS ────────────────────────────────── */
-.section{
-  padding:64px 48px;
-  text-align:center;
-  border-top:1px solid var(--border);
-  background:rgba(253,252,250,0.62);
-}
-.section.alt{background:rgba(240,236,228,0.55);}
-
-.section-label{
-  font-family:'EB Garamond',serif;
-  font-size:.58rem;
-  letter-spacing:.5em;
-  text-transform:uppercase;
-  color:var(--slate-dark);
-  margin-bottom:10px;
-}
-.section-title{
-  font-family:'Pinyon Script',cursive;
-  font-size:2.6rem;
-  color:var(--ink);
-  margin-bottom:8px;
-  line-height:1.2;
-}
-.section-sub{
-  font-family:'EB Garamond',serif;
-  font-size:.62rem;
-  letter-spacing:.35em;
-  text-transform:uppercase;
-  color:var(--slate-muted);
-  margin-bottom:36px;
-}
-
-/* Ornament */
-.ornament{
-  display:flex;align-items:center;gap:14px;
-  justify-content:center;
-  margin:0 auto 36px;
-}
-.ornament::before,.ornament::after{
-  content:'';flex:1;max-width:70px;height:1px;
-  background:linear-gradient(90deg,transparent,var(--slate-muted));
-}
-.ornament::after{background:linear-gradient(90deg,var(--slate-muted),transparent);}
-.ornament span{color:var(--slate);font-size:.6rem;letter-spacing:.2em;}
-
-/* ── PADRES ──────────────────────────────────── */
-.parents-intro{font-family:'Cormorant Garamond',serif;text-transform:uppercase;letter-spacing:.26em;font-size:.98rem;line-height:1.8;color:var(--ink);margin-bottom:46px;}
-.parents{max-width:440px;margin:0 auto;}
-.parents-label{font-family:'Pinyon Script',cursive;font-size:1.9rem;color:var(--slate-dark);margin-bottom:6px;line-height:1.1;}
-.parents-names{font-family:'Cormorant Garamond',serif;font-size:1.32rem;font-weight:500;line-height:1.6;color:var(--ink);letter-spacing:.04em;}
-.parents-heart{display:flex;align-items:center;justify-content:center;gap:12px;margin:30px 0;color:var(--slate-muted);}
-.parents-heart::before,.parents-heart::after{content:'';height:1px;width:46px;background:linear-gradient(90deg,transparent,var(--slate-muted));}
-.parents-heart::after{background:linear-gradient(90deg,var(--slate-muted),transparent);}
-.parents-heart span{font-size:1.15rem;line-height:1;}
-
-/* ── COUNTDOWN ───────────────────────────────── */
-.countdown-row{
-  display:flex;justify-content:center;gap:clamp(8px,2.5vw,16px);flex-wrap:nowrap;align-items:stretch;max-width:430px;margin:0 auto;
-}
-.countdown-unit{position:relative;flex:1 1 0;min-width:0;max-width:100px;padding:clamp(24px,7vw,34px) 6px clamp(12px,3.5vw,18px);background:rgba(247,245,241,0.45);border:1px solid rgba(117,110,100,0.4);border-radius:clamp(46px,17vw,78px) clamp(46px,17vw,78px) 14px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;box-shadow:0 8px 20px -14px rgba(117,110,100,0.45);}.countdown-unit:not(:last-child)::after{content:'·';position:absolute;right:calc(-1 * clamp(4px,1.2vw,9px));top:50%;transform:translateY(-50%);color:var(--slate-muted);font-size:1rem;}
-.countdown-num{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.2rem,4vw,3rem);
-  font-weight:300;
-  line-height:1;
-  display:block;
-  color:var(--ink);
-  letter-spacing:-.02em;
-}
-.countdown-lbl{
-  font-family:'EB Garamond',serif;
-  font-size:.55rem;
-  letter-spacing:.4em;
-  text-transform:uppercase;
-  color:var(--slate-dark);margin-top:8px;
-  display:block;
-}
-
-/* ── LOCATION ────────────────────────────────── */
-.map-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:12px 24px;
-  border:1px solid var(--slate);
-  font-family:'EB Garamond',serif;
-  font-size:.72rem;
-  letter-spacing:.3em;
-  text-transform:uppercase;
-  color:var(--slate-dark);
-  cursor:pointer;
-  background:transparent;
-  transition:all .2s;
-  margin:24px auto 28px;
-  text-decoration:none;
-}
-.map-btn:hover{background:var(--slate);color:var(--white);}
-.venue-name{
-  font-family:'Pinyon Script',cursive;
-  font-size:2.4rem;
-  color:var(--ink);
-  margin-bottom:6px;
-}
-.venue-detail{
-  font-family:'EB Garamond',serif;
-  font-size:.82rem;
-  color:var(--ink-muted);
-  letter-spacing:.1em;
-  margin-top:4px;
-}
-
-/* ── PROGRAMA ────────────────────────────────── */
-.itin-list{list-style:none;position:relative;max-width:520px;margin:44px auto 0;padding:6px 0;} .itin-list::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;transform:translateX(-50%);background:linear-gradient(180deg,transparent 0%,rgba(115,120,114,0.5) 8%,rgba(115,120,114,0.5) 92%,transparent 100%);} .itin-item{position:relative;width:50%;padding:26px 38px;} .itin-item:nth-child(odd){left:0;text-align:right;} .itin-item:nth-child(even){left:50%;text-align:left;} .itin-item::after{content:'';position:absolute;top:34px;width:7px;height:7px;border-radius:50%;background:var(--slate-dark);box-shadow:0 0 0 4px var(--paper),0 0 0 5px var(--border);} .itin-item:nth-child(odd)::after{right:-3.5px;} .itin-item:nth-child(even)::after{left:-3.5px;} .itin-icon{width:146px;height:123px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;} .itin-icon img{max-width:100%;max-height:100%;object-fit:contain;display:block;} .itin-item:nth-child(odd) .itin-icon{margin-left:auto;} .itin-item:nth-child(even) .itin-icon{margin-right:auto;} .itin-icon svg{width:32px;height:32px;fill:none;stroke:var(--slate-dark);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;} .itin-event{font-family:'Cormorant Garamond',serif;font-size:1.28rem;font-weight:500;text-transform:uppercase;letter-spacing:.18em;color:var(--ink);} .itin-time{font-family:'EB Garamond',serif;font-size:.8rem;font-style:italic;color:var(--ink-muted);margin-top:5px;line-height:1.5;} .itin-time b{font-style:normal;font-weight:600;color:var(--slate-dark);letter-spacing:.06em;} @media(max-width:480px){.itin-list{margin-top:34px;} .itin-item{padding:20px 14px;} .itin-event{font-size:1rem;letter-spacing:.1em;} .itin-time{font-size:.72rem;} .itin-icon{width:114px;height:98px;} .itin-icon svg{width:27px;height:27px;}}
-
-/* ── DRESSCODE ───────────────────────────────── */
-.dresscode-text{
-  font-family:'EB Garamond',serif;
-  font-size:1rem;
-  color:var(--ink-muted);
-  font-style:italic;
-  line-height:1.7;
-}
-
-/* ── REGALOS ─────────────────────────────────── */
-.gift-intro{max-width:34ch;margin:0 auto 32px;}
-.gift-grid{max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:20px;}
-.gift-card{border:1px solid var(--border);background:rgba(253,252,250,0.6);border-radius:8px;padding:28px 24px;}
-.gift-card-label{font-family:'EB Garamond',serif;font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--slate-dark);margin-bottom:14px;}
-.gift-note{font-family:'EB Garamond',serif;font-size:.95rem;font-style:italic;color:var(--ink-muted);line-height:1.6;margin-bottom:6px;}
-.gift-code{font-family:'Cormorant Garamond',serif;font-size:1.9rem;letter-spacing:.18em;color:var(--ink);}
-.transfer{display:flex;flex-direction:column;text-align:left;max-width:320px;margin:0 auto;}
-.tr-row{display:flex;justify-content:space-between;gap:14px;padding:9px 2px;border-bottom:1px solid var(--border);font-family:'EB Garamond',serif;font-size:.92rem;}
-.tr-row:last-child{border-bottom:none;}
-.tr-row span{color:var(--slate-dark);}
-.tr-row b{color:var(--ink);font-weight:600;letter-spacing:.02em;}
-
-/* ── RSVP ────────────────────────────────────── */
-.rsvp-frame-wrap{
-  max-width:480px;
-  margin:0 auto;
-  border:1px solid var(--border);
-  background:rgba(253,252,250,0.6);
-  overflow:hidden;
-}
-.rsvp-frame-wrap iframe{
-  display:block;
-  width:100%;
-  border:none;
-}
-
-/* ── FOOTER ──────────────────────────────────── */
-.footer{
-  padding:40px 48px;
-  text-align:center;
-  border-top:1px solid var(--border);
-  font-family:'EB Garamond',serif;
-  font-size:.58rem;
-  letter-spacing:.4em;
-  text-transform:uppercase;
-  color:var(--slate-muted);
-  background:rgba(253,252,250,0.55);
-}
-
-/* ── OVERLAY ─────────────────────────────────── */
-.sending-overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(30,36,40,.55);z-index:9999;
-  align-items:center;justify-content:center;
-}
-.sending-overlay.show{display:flex;}
-.sending-box{
-  background:var(--white);
-  padding:48px 56px;
-  text-align:center;
-  font-family:'Cormorant Garamond',serif;
-}
-.sending-box h3{font-size:1.7rem;font-weight:300;margin-bottom:8px;color:var(--ink);}
-.sending-box p{font-family:'EB Garamond',serif;font-size:.82rem;color:var(--ink-muted);}
-.spinner{
-  width:34px;height:34px;
-  border:1.5px solid var(--border);
-  border-top-color:var(--slate);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-  margin:20px auto;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* Responsive */
-@media(max-width:480px){
-  .hero{padding:60px 32px 0;}
-  .section{padding:52px 28px;}
-  .countdown-row{gap:28px;}
-  .countdown-num{font-size:2.05rem;}
-  .hero-names{font-size:clamp(3rem,14vw,4.5rem);}
-}
+/* reveal suave al hacer scroll */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 1s ease, transform 1s ease}
+.reveal.in{opacity:1;transform:none}
 </style>
 </head>
 <body>
+<div class="stage">
 
+  <!-- ═══ EL SOBRE ═══ -->
+  <section id="cover" role="button" tabindex="0" aria-label="Abrir invitación">
+    <img class="sobre-img" id="sobre" src="img/sobre.jpg" alt="Presiona para abrir la invitación">
+  </section>
 
-<!-- ══ HERO ══════════════════════════════════════ -->
-<div class="hero">
-  <div class="hero-bg"></div>
+  <!-- ═══ INVITACIÓN ═══ -->
+  <div id="invitation">
 
-  <div class="hero-content">
-    <!-- Monogram -->
-    
+    <!-- 1 · Portada -->
+    <section class="page reveal"><img src="img/pag1.jpg" alt="Camila & Alfonso — Save the date · 30 de enero de 2027, Villarrica"></section>
 
-    <div class="label-save">Save the Date</div>
+    <!-- 2 · Cuenta regresiva (números dinámicos) -->
+    <section class="page reveal" id="count-page">
+      <img src="img/pag2.jpg" alt="Cuenta regresiva">
+      <div class="cd" id="cd-d">–</div>
+      <div class="cd" id="cd-h">–</div>
+      <div class="cd" id="cd-m">–</div>
+    </section>
 
-    <div class="hero-names">
-      Camila &amp; Alfonso
-    </div>
+    <!-- 3 · Padres -->
+    <section class="page reveal"><img src="img/pag3.jpg" alt="Con la bendición de Dios y la compañía de nuestros padres"></section>
 
-    
+    <!-- 4 · Ceremonia -->
+    <section class="page reveal" id="cere-page">
+      <img src="img/pag4.jpg" alt="Ceremonia · Catedral de Villarrica · 16:30 hrs">
+      <a class="maplink" href="https://www.google.com/maps/place/catedral+de+villarrica/data=!4m2!3m1!1s0x9614623cc6a49cd3:0x51a614f02d4a52a3" target="_blank" rel="noopener"><span>Click aquí ↗</span></a>
+    </section>
 
-    <div class="hero-date">Sábado · 30 de enero de 2027</div>
-
-    <div class="hero-location-script">Villarrica, Chile</div>
-
-    <p class="hero-invite-text">
-      Con mucha alegría queremos compartir contigo el día más especial de nuestras vidas. Tu presencia hará este momento aún más especial.
-    </p>
-  </div>
-
-  <div class="scroll-hint">↓ desliza para más</div>
-</div>
-
-<!-- ══ PADRES ══════════════════════════════════════ -->
-<div class="section">
-  <div class="parents-intro">Con la bendición de Dios<br>y la compañía de</div>
-  <div class="parents">
-    <div class="parents-group">
-      <div class="parents-label">Padres de la novia</div>
-      <div class="parents-names">Pamela Burgos Manriquez<br>Marat Yevenes Vega</div>
-    </div>
-    <div class="parents-heart"><span>&#9829;</span></div>
-    <div class="parents-group">
-      <div class="parents-label">Padres del novio</div>
-      <div class="parents-names">Allyson Chabouty Trichet<br>Alfonso Zanetti Cortessi</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ COUNTDOWN ══════════════════════════════════ -->
-<div class="section alt">
-  <div class="section-label">Cuenta atrás</div>
-  <div class="section-title">Solamente faltan</div>
-  
-  <div class="countdown-row" id="live-countdown">
-    <div class="countdown-unit">
-      <span class="countdown-num" id="cd-d">—</span>
-      <span class="countdown-lbl">días</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-num" id="cd-h">—</span>
-      <span class="countdown-lbl">horas</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-num" id="cd-m">—</span>
-      <span class="countdown-lbl">min</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-num" id="cd-s">—</span>
-      <span class="countdown-lbl">seg</span>
-    </div>
-  </div>
-</div>
-
-<!-- ══ LOCATION ═══════════════════════════════════ -->
-<div class="section">
-  <div class="section-label">Detalles del día</div>
-  <div class="section-title">¿Dónde nos vemos?</div>
-  
-  <div style="max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:36px;">
-
-    <!-- Ceremonia -->
-    <div style="text-align:center;padding:28px 24px;border:1px solid var(--border);background:rgba(253,252,250,0.6);">
-      <div style="font-family:'EB Garamond',serif;font-size:.55rem;letter-spacing:.45em;text-transform:uppercase;color:var(--slate-dark);margin-bottom:10px;">Ceremonia</div>
-      <div class="venue-name">Catedral de Villarrica</div>
-      <div class="venue-detail">Villarrica, Chile</div>
-      <div class="venue-detail">16:30 h</div>
-      <a class="map-btn" href="https://www.google.com/maps/place/catedral+de+villarrica/data=!4m2!3m1!1s0x9614623cc6a49cd3:0x51a614f02d4a52a3?sa=X&ved=1t:155783&ictx=111" target="_blank">
-        📍 Ver en Google Maps
-      </a>
-    </div>
-
-    <!-- Divider -->
-    <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
-      <span style="flex:1;height:1px;background:var(--border);"></span>
-      <span style="font-family:'Pinyon Script',cursive;font-size:1.6rem;color:var(--slate-dark);line-height:1;">y luego</span>
-      <span style="flex:1;height:1px;background:var(--border);"></span>
-    </div>
-
-    <!-- Recepción -->
-    <div style="text-align:center;padding:28px 24px;border:1px solid var(--border);background:rgba(253,252,250,0.6);">
-      <div style="font-family:'EB Garamond',serif;font-size:.55rem;letter-spacing:.45em;text-transform:uppercase;color:var(--slate-dark);margin-bottom:10px;">Recepción</div>
-      <div class="venue-name">Hotel El Parque</div>
-      <div class="venue-detail">Villarrica, Chile</div>
-      <div class="venue-detail">A partir de las 18:00 h</div>
-      <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Hotel%20el%20Parque%2C%20Villarrica" target="_blank">
-        📍 Ver en Google Maps
-      </a>
-    </div>
+    <!-- 5 · Recepción -->
+    <section class="page reveal" id="rec-page">
+      <img src="img/pag5.jpg" alt="Recepción · Hotel El Parque · 18:00 hrs">
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Hotel%20el%20Parque%2C%20Villarrica" target="_blank" rel="noopener"><span>Click aquí ↗</span></a>
+    </section>
 
   </div>
-</div>
-
-<!-- ══ PROGRAMA ════════════════════════════════════ -->
-<div class="section alt">
-  <div class="section-label">Itinerario</div> <div class="section-title">El gran día</div>  <ul class="itin-list"> <li class="itin-item"><div class="itin-icon"><img src="ico-ceremonia.png" alt="Ceremonia religiosa"></div><div class="itin-event">Ceremonia religiosa</div><div class="itin-time"><b>16:30</b> · Catedral de Villarrica</div></li> <li class="itin-item"><div class="itin-icon"><img src="Hotel.png" alt="Recepción de invitados"></div><div class="itin-event">Recepción de invitados</div><div class="itin-time"><b>17:45</b> · Llegada al Hotel El Parque</div></li> <li class="itin-item"><div class="itin-icon"><img src="cocktel.png" alt="Cóctel" style="transform:scale(1.5)"></div><div class="itin-event">Cóctel</div><div class="itin-time"><b>18:00</b> · En el parrón</div></li> <li class="itin-item"><div class="itin-icon"><img src="Cena.png" alt="Cena"></div><div class="itin-event">Cena</div><div class="itin-time"><b>19:45</b> · Con música de acompañamiento</div></li> <li class="itin-item"><div class="itin-icon"><img src="fiesta.png" alt="Fiesta"></div><div class="itin-event">Fiesta</div><div class="itin-time"><b>21:30</b> · Vals de los novios y a bailar</div></li> <li class="itin-item"><div class="itin-icon"><img src="terminofiesta.png" alt="Fin de la fiesta" style="transform:scale(1.25)"></div><div class="itin-event">Fin de la fiesta</div><div class="itin-time"><b>04:00</b> · Cierre de la celebración</div></li> </ul>
-</div>
-
-<!-- ══ DRESSCODE ══════════════════════════════════ -->
-<div class="section">
-  <div class="section-label">Vestimenta</div>
-  <div class="section-title">Dresscode</div>
-  <p class="dresscode-text" style="font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--slate-dark);margin-bottom:.9rem;">Garden Formal</p><p class="dresscode-text">Elegancia para celebrar al aire libre. Para ellas: vestidos largos, colores vibrantes y telas fluidas. Para ellos: traje formal. Sugerimos evitar tacos muy finos por el pasto y reservar el blanco para la novia.</p><p class="dresscode-text" style="margin-top:1.1rem;font-size:.95em;">Inspiración en el siguiente link: <a href="galeria.html" target="_blank" rel="noopener" style="color:var(--slate);text-decoration:underline;">Click Aquí</a></p>
-</div>
-
-<!-- ══ REGALOS ════════════════════════════════════ -->
-<div class="section alt">
-  <div class="section-label">Regalos</div>
-  <div class="section-title">¿Qué Regalarnos?</div>
-  <p class="dresscode-text gift-intro">Con tu presencia nos basta, pero si quieres tener un detalle con nosotros, te dejamos estas opciones.</p>
-
-  <div class="gift-grid">
-    <div class="gift-card">
-      <div class="gift-card-label">Lista de novios</div>
-      <p class="gift-note">Te compartimos nuestra lista de Código Novios Paris</p>
-      <p class="gift-code">0000</p>
-      <a class="map-btn" href="#" style="margin:18px auto 4px;">¡Ver lista de regalos!</a>
-    </div>
-    <div class="gift-card">
-      <div class="gift-card-label">Transferencia</div>
-      <div class="transfer">
-        <div class="tr-row"><span>Nombre</span><b>Por definir</b></div>
-        <div class="tr-row"><span>RUT</span><b>0000</b></div>
-        <div class="tr-row"><span>Banco</span><b>Por definir</b></div>
-        <div class="tr-row"><span>Tipo de cuenta</span><b>Por definir</b></div>
-        <div class="tr-row"><span>N° de cuenta</span><b>0000</b></div>
-        <div class="tr-row"><span>Correo</span><b>Por definir</b></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ RSVP ═══════════════════════════════════════ -->
-<div class="section alt" id="rsvp-section">
-  <div class="section-label">Confirmación de asistencia</div>
-  <div class="section-title">¿Nos acompañas?</div>
-  
-  <p style="font-family:'EB Garamond',serif;font-size:.82rem;color:var(--ink-muted);margin-bottom:28px;letter-spacing:.05em;">
-    Confirma antes del miércoles, 27 de mayo de 2026
-  </p>
-  <div class="rsvp-frame-wrap">
-    <iframe
-      src="https://docs.google.com/forms/d/e/1FAIpQLSdu7X0xWRRfJCKicTIgxN_wWhROmQyZ3Ud7xF_IQ-b0ox_NaQ/viewform?embedded=true"
-      height="520"
-      frameborder="0"
-      marginheight="0"
-      marginwidth="0">Cargando…</iframe>
-  </div>
-</div>
-
-<!-- ══ FOOTER ══════════════════════════════════════ -->
-<div class="footer">
-  Con amor · Camila &amp; Alfonso · 2027
 </div>
 
 <script>
-// Live countdown
-function tick(){
-  var target=new Date('2027-01-30T16:30:00');
-  var now=new Date();var diff=target-now;
-  if(diff<=0)return;
-  document.getElementById('cd-d').textContent=Math.floor(diff/86400000);
-  document.getElementById('cd-h').textContent=Math.floor((diff%86400000)/3600000);
-  document.getElementById('cd-m').textContent=Math.floor((diff%3600000)/60000);
-  document.getElementById('cd-s').textContent=Math.floor((diff%60000)/1000);
+"use strict";
+const cover=document.getElementById("cover"), invitation=document.getElementById("invitation");
+let opened=false;
+function abrir(){
+  if(opened) return; opened=true;
+  cover.classList.add("opening");
+  invitation.classList.add("show");
+  setTimeout(()=>{
+    cover.classList.add("gone");
+    setTimeout(()=>{ cover.style.display="none"; window.scrollTo({top:0,behavior:"instant"});
+      revelar(); tick(); setInterval(tick,1000);
+    },800);
+  },1000);
 }
-setInterval(tick,1000);tick();
+cover.addEventListener("click",abrir);
+cover.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();abrir();} });
+
+/* reveal on scroll */
+function revelar(){
+  const io=new IntersectionObserver(es=>{ for(const e of es) if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} },{threshold:.12});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+  requestAnimationFrame(()=>document.querySelector("#invitation .page")?.classList.add("in"));
+}
+
+/* cuenta regresiva → 30 enero 2027, 16:30 */
+const target=new Date("2027-01-30T16:30:00-03:00").getTime();
+function tick(){
+  let diff=Math.max(0,target-Date.now());
+  const d=Math.floor(diff/86400000); diff-=d*86400000;
+  const h=Math.floor(diff/3600000);  diff-=h*3600000;
+  const m=Math.floor(diff/60000);
+  set("cd-d",d); set("cd-h",h); set("cd-m",m);
+}
+function set(id,v){ const el=document.getElementById(id); if(el) el.textContent=v; }
+
+/* modo preview: muestra todo (?preview) */
+if(location.search.includes("preview")){
+  opened=true; invitation.classList.add("show"); cover.style.display="none";
+  document.querySelectorAll(".reveal").forEach(el=>el.classList.add("in"));
+  tick(); setInterval(tick,1000);
+}
 </script>
 </body>
 </html>
