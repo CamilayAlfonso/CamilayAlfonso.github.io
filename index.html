@@ -58,6 +58,10 @@ img{max-width:100%;display:block}
 .gift-btn{display:inline-block;margin-top:16px;padding:12px 38px;border:1px solid var(--taupe);border-radius:40px;color:var(--taupe);text-decoration:none;font-family:'EB Garamond',serif;font-size:clamp(11px,3vw,13px);letter-spacing:.2em;text-transform:uppercase;transition:background .3s ease,color .3s ease;-webkit-tap-highlight-color:transparent}
 .gift-btn:hover,.gift-btn:active{background:var(--taupe);color:var(--cream)}
 
+/* formulario de confirmación embebido (pág 9) */
+.rsvp-embed{background:var(--cream);padding:6px 8px 40px}
+.rsvp-embed iframe{width:100%;height:1250px;border:0;display:block;background:var(--cream)}
+
 /* zonas clickeables (ubicaciones / inspiración) */
 .hot{position:absolute;display:block;border-radius:10px;transition:background .25s;-webkit-tap-highlight-color:transparent}
 .hot:hover{background:rgba(134,120,104,.10)}
@@ -141,7 +145,12 @@ img{max-width:100%;display:block}
     </section>
 
     <!-- 9 · Confirmación de asistencia -->
-    <section class="page reveal sep" id="p9"><img src="img/pag9.jpg" alt="Confirmación de asistencia"></section>
+    <section class="page reveal sep" id="p9">
+      <img src="img/pag9.jpg" alt="Confirmación de asistencia">
+      <div class="rsvp-embed">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd9EYAKTynJ3u3Lp6Y_wzLxXVssOwtaqDOnKiGzpv_fNNaW2w/viewform?embedded=true" title="Confirmación de asistencia" loading="lazy">Cargando el formulario…</iframe>
+      </div>
+    </section>
 
   </div>
 </div>
