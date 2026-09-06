@@ -31,6 +31,8 @@ img{max-width:100%;display:block}
 #invitation.show{opacity:1;max-height:none;overflow:visible}
 .page{position:relative;display:block;container-type:inline-size}
 .page img{width:100%;display:block}
+/* separación entre páginas (aire visual) */
+.page.sep{margin-top:clamp(30px,7.5vw,50px)}
 
 /* cuenta regresiva en HTML (pág 2) con segundos */
 .cdpage{background:var(--cream);text-align:center;padding:60px 12px 50px}
@@ -103,30 +105,30 @@ img{max-width:100%;display:block}
       <div class="cd-foot">Para nuestro gran día</div>
     </section>
 
-    <section class="page reveal"><img src="img/pag3.jpg" alt="Con la bendición de Dios y de nuestros padres"></section>
+    <section class="page reveal sep"><img src="img/pag3.jpg" alt="Con la bendición de Dios y de nuestros padres"></section>
 
     <!-- 4 · Ceremonia -->
-    <section class="page reveal" id="p4">
+    <section class="page reveal sep" id="p4">
       <img src="img/pag4.jpg" alt="Ceremonia · Catedral de Villarrica · 16:30 hrs">
       <a class="hot" href="https://www.google.com/maps/place/catedral+de+villarrica/data=!4m2!3m1!1s0x9614623cc6a49cd3:0x51a614f02d4a52a3" target="_blank" rel="noopener" aria-label="Ver ubicación Catedral de Villarrica"></a>
     </section>
 
     <!-- 5 · Recepción -->
-    <section class="page reveal" id="p5">
+    <section class="page reveal sep" id="p5">
       <img src="img/pag5.jpg" alt="Recepción · Hotel El Parque · 18:00 hrs">
       <a class="hot" href="https://www.google.com/maps/search/?api=1&query=Hotel%20el%20Parque%2C%20Villarrica" target="_blank" rel="noopener" aria-label="Ver ubicación Hotel El Parque"></a>
     </section>
 
-    <section class="page reveal"><img src="img/pag6.jpg" alt="Itinerario del día"></section>
+    <section class="page reveal sep"><img src="img/pag6.jpg" alt="Itinerario del día"></section>
 
     <!-- 7 · Dress code -->
-    <section class="page reveal" id="p7">
+    <section class="page reveal sep" id="p7">
       <img src="img/pag7.jpg" alt="Dress code · Garden Formal">
       <a class="hot" href="galeria.html" target="_blank" rel="noopener" aria-label="Inspiración dress code"></a>
     </section>
 
     <!-- 8 · Mesa de regalos -->
-    <section class="page reveal gifts" id="p8">
+    <section class="page reveal gifts sep" id="p8">
       <img src="img/pag8.jpg" alt="Mesa de regalos · ¿Qué regalarnos?">
       <div class="gift-card">
         <h3>Lista de Novios · Paris</h3>
