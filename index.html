@@ -57,10 +57,22 @@ img{max-width:100%;display:block}
 .tr-row .v.todo{opacity:.5;font-style:italic}
 .gift-btn{display:inline-block;margin-top:16px;padding:12px 38px;border:1px solid var(--taupe);border-radius:40px;color:var(--taupe);text-decoration:none;font-family:'EB Garamond',serif;font-size:clamp(11px,3vw,13px);letter-spacing:.2em;text-transform:uppercase;transition:background .3s ease,color .3s ease;-webkit-tap-highlight-color:transparent}
 .gift-btn:hover,.gift-btn:active{background:var(--taupe);color:var(--cream)}
+/* transferencia con copiado */
+.tr-field{display:flex;flex-direction:column;gap:3px;text-align:left;padding:9px 2px;border-bottom:1px solid var(--taupe-line)}
+.tr-field:last-of-type{border-bottom:0}
+.tr-lbl{color:var(--taupe);opacity:.7;text-transform:uppercase;letter-spacing:.07em;font-size:clamp(9px,2.4vw,10.5px)}
+.tr-plain{color:var(--taupe);font-size:clamp(14px,3.6vw,16px)}
+.tr-val{align-self:flex-start;max-width:100%;appearance:none;-webkit-appearance:none;border:0;background:none;font-family:'EB Garamond',serif;color:var(--taupe);font-size:clamp(14px,3.6vw,16px);text-align:left;padding:2px 0;cursor:pointer;word-break:break-word;-webkit-tap-highlight-color:transparent}
+.tr-val::after{content:"⧉ copiar";margin-left:9px;opacity:.55;font-size:.7em;letter-spacing:.04em;white-space:nowrap}
+.tr-val:active{opacity:.6}
+.tr-val.copied::after{content:"✓ copiado";opacity:1}
+.tr-copyall{cursor:pointer;background:var(--taupe);color:var(--cream)}
 
 /* formulario de confirmación propio (pág 9) */
 .rsvp2{background:var(--cream);text-align:center;padding:4px 24px 58px;max-width:430px;margin:0 auto}
 .rsvp2-intro{font-style:italic;color:var(--taupe);font-size:clamp(14px,3.9vw,18px);line-height:1.6;margin:0 0 26px}
+.rsvp2-note{color:var(--taupe);font-size:clamp(12.5px,3.4vw,14.5px);line-height:1.65;margin:6px 0 26px;text-align:center}
+.rsvp2-note b{font-weight:600}
 .rsvp2-form{display:flex;flex-direction:column;text-align:left}
 .rsvp2-form[hidden]{display:none}
 .rsvp2-lbl{color:var(--taupe);font-size:clamp(11px,3vw,13px);letter-spacing:.08em;text-transform:uppercase;margin-top:16px}
@@ -150,12 +162,13 @@ textarea.rsvp2-input{resize:vertical}
       <div class="gift-card">
         <h3>Transferencia</h3>
         <div class="gsub">Si prefieres aportar a nuestra luna de miel</div>
-        <div class="tr-row"><span class="k">Nombre</span><span class="v todo">Por definir</span></div>
-        <div class="tr-row"><span class="k">RUT</span><span class="v todo">Por definir</span></div>
-        <div class="tr-row"><span class="k">Banco</span><span class="v">Banco de Chile</span></div>
-        <div class="tr-row"><span class="k">Cuenta</span><span class="v">Cuenta Corriente</span></div>
-        <div class="tr-row"><span class="k">N° de cuenta</span><span class="v todo">Por definir</span></div>
-        <div class="tr-row"><span class="k">Correo</span><span class="v todo">Por definir</span></div>
+        <div class="tr-field"><span class="tr-lbl">Nombre</span><button type="button" class="tr-val" data-copy="CAMILA ANTONIETA YEVENES BURGOS">CAMILA ANTONIETA YEVENES BURGOS</button></div>
+        <div class="tr-field"><span class="tr-lbl">RUT</span><button type="button" class="tr-val" data-copy="19810376-4">19810376-4</button></div>
+        <div class="tr-field"><span class="tr-lbl">Banco</span><span class="tr-plain">Tenpo (prepago)</span></div>
+        <div class="tr-field"><span class="tr-lbl">Tipo de cuenta</span><span class="tr-plain">Cuenta Vista</span></div>
+        <div class="tr-field"><span class="tr-lbl">N° de cuenta</span><button type="button" class="tr-val" data-copy="111119810376">111119810376</button></div>
+        <div class="tr-field"><span class="tr-lbl">Correo</span><button type="button" class="tr-val" data-copy="camilayevenesb@gmail.com">camilayevenesb@gmail.com</button></div>
+        <button type="button" class="gift-btn tr-copyall">Copiar todos los datos</button>
       </div>
     </section>
 
@@ -163,6 +176,7 @@ textarea.rsvp2-input{resize:vertical}
     <section class="page reveal sep" id="p9">
       <img src="img/pag9.jpg" alt="Confirmación de asistencia">
       <div class="rsvp2">
+        <p class="rsvp2-note">Te pedimos confirmar tu asistencia a más tardar el <b>22 de enero</b>. Te agradecemos considerar que la invitación es personal y considera únicamente a las personas a quienes fue dirigida.</p>
         <form id="rsvpForm" class="rsvp2-form" method="POST" target="rsvp_sink"
               action="https://docs.google.com/forms/d/e/1FAIpQLSfqTGg9jCs-0gsePzsaNgcH1KL23E2YlMJitOaS31uKd3PqkA/formResponse">
           <label class="rsvp2-lbl" for="rsvpNombre">Nombre completo</label>
@@ -225,6 +239,22 @@ const rsvpForm=document.getElementById("rsvpForm");
 if(rsvpForm){
   rsvpForm.addEventListener("submit",()=>{
     setTimeout(()=>{ rsvpForm.hidden=true; const ok=document.getElementById("rsvpOk"); if(ok) ok.hidden=false; },500);
+  });
+}
+
+/* copiar datos de transferencia (fácil para apps de banco) */
+function copiarTexto(t){
+  if(navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(t);
+  return new Promise((res,rej)=>{ try{ const ta=document.createElement("textarea"); ta.value=t; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.focus(); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); res(); }catch(e){ rej(e); } });
+}
+document.querySelectorAll(".tr-val[data-copy]").forEach(el=>{
+  el.addEventListener("click",()=>{ copiarTexto(el.getAttribute("data-copy")).then(()=>{ el.classList.add("copied"); setTimeout(()=>el.classList.remove("copied"),1400); }).catch(()=>{}); });
+});
+const copyAll=document.querySelector(".tr-copyall");
+if(copyAll){
+  copyAll.addEventListener("click",()=>{
+    const txt="Nombre: CAMILA ANTONIETA YEVENES BURGOS\nRUT: 19810376-4\nBanco: Tenpo (prepago)\nTipo de cuenta: Cuenta Vista\nN° de cuenta: 111119810376\nCorreo: camilayevenesb@gmail.com";
+    copiarTexto(txt).then(()=>{ const o=copyAll.textContent; copyAll.textContent="✓ ¡Copiado!"; setTimeout(()=>copyAll.textContent=o,1600); }).catch(()=>{});
   });
 }
 
