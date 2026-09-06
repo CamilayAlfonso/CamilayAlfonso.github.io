@@ -41,6 +41,21 @@ img{max-width:100%;display:block}
 .cd-cell .cd-lbl{border-top:1px solid var(--taupe-line);padding-top:9px;width:86%;font-size:clamp(8px,2.4vw,10px);letter-spacing:.08em;text-transform:uppercase;color:var(--taupe)}
 .cd-foot{margin-top:48px;font-size:clamp(10px,2.7vw,11px);letter-spacing:.2em;text-transform:uppercase;color:var(--taupe)}
 
+/* mesa de regalos (pág 8) */
+.gifts{background:var(--cream);text-align:center;padding:2px 22px 34px}
+.gift-card{max-width:352px;margin:0 auto 20px;border:1px solid var(--taupe-line);border-radius:16px;padding:26px 24px 28px;background:rgba(255,255,255,.4)}
+.gift-card h3{font-size:clamp(14px,3.7vw,17px);letter-spacing:.16em;text-transform:uppercase;color:var(--taupe);font-weight:500;margin-bottom:5px}
+.gift-card .gsub{font-size:clamp(11px,3vw,12.5px);font-style:italic;color:var(--taupe);opacity:.82;margin-bottom:16px}
+.gift-code{font-size:clamp(27px,8.4vw,36px);letter-spacing:.16em;color:var(--taupe);margin:2px 0 12px;font-variant-numeric:tabular-nums}
+.gift-hint{font-size:clamp(10.5px,2.8vw,12px);color:var(--taupe);opacity:.85;line-height:1.6}
+.tr-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 2px;border-bottom:1px solid var(--taupe-line)}
+.tr-row:last-child{border-bottom:0}
+.tr-row .k{color:var(--taupe);opacity:.7;text-transform:uppercase;letter-spacing:.07em;font-size:clamp(9px,2.4vw,10.5px);white-space:nowrap}
+.tr-row .v{color:var(--taupe);text-align:right;font-size:clamp(12px,3.3vw,14px);font-variant-numeric:tabular-nums}
+.tr-row .v.todo{opacity:.5;font-style:italic}
+.gift-btn{display:inline-block;margin-top:16px;padding:12px 38px;border:1px solid var(--taupe);border-radius:40px;color:var(--taupe);text-decoration:none;font-family:'EB Garamond',serif;font-size:clamp(11px,3vw,13px);letter-spacing:.2em;text-transform:uppercase;transition:background .3s ease,color .3s ease;-webkit-tap-highlight-color:transparent}
+.gift-btn:hover,.gift-btn:active{background:var(--taupe);color:var(--cream)}
+
 /* confirmar asistencia (pág 9) */
 .rsvp{background:var(--cream);text-align:center;padding:4px 26px 70px}
 .rsvp p{color:var(--taupe)}
@@ -110,7 +125,26 @@ img{max-width:100%;display:block}
       <a class="hot" href="galeria.html" target="_blank" rel="noopener" aria-label="Inspiración dress code"></a>
     </section>
 
-    <section class="page reveal"><img src="img/pag8.jpg" alt="Mesa de regalos"></section>
+    <!-- 8 · Mesa de regalos -->
+    <section class="page reveal gifts" id="p8">
+      <img src="img/pag8.jpg" alt="Mesa de regalos · ¿Qué regalarnos?">
+      <div class="gift-card">
+        <h3>Lista de Novios · Paris</h3>
+        <div class="gsub">Nuestra lista de regalos</div>
+        <div class="gift-code">21065404</div>
+        <a class="gift-btn" href="https://www.noviosparis.cl/home/couple-catalog/21065404" target="_blank" rel="noopener">Ingresa aquí</a>
+      </div>
+      <div class="gift-card">
+        <h3>Transferencia</h3>
+        <div class="gsub">Si prefieres aportar a nuestra luna de miel</div>
+        <div class="tr-row"><span class="k">Nombre</span><span class="v todo">Por definir</span></div>
+        <div class="tr-row"><span class="k">RUT</span><span class="v todo">Por definir</span></div>
+        <div class="tr-row"><span class="k">Banco</span><span class="v">Banco de Chile</span></div>
+        <div class="tr-row"><span class="k">Cuenta</span><span class="v">Cuenta Corriente</span></div>
+        <div class="tr-row"><span class="k">N° de cuenta</span><span class="v todo">Por definir</span></div>
+        <div class="tr-row"><span class="k">Correo</span><span class="v todo">Por definir</span></div>
+      </div>
+    </section>
 
     <!-- 9 · Confirmación de asistencia -->
     <section class="page reveal rsvp" id="p9">
